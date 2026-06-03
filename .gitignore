@@ -1,15 +1,19 @@
 # Binary
-clscli
-clscli.exe
+/clscli
+/clscli.exe
 
-# Pack output
-dist/
+# Build output
+/dist/
 
-# Output / user data
+# Generated output / user data
 *.csv
 *.log
+/result.json
+/CLAUDE.md
+/CLSCLI_TEST_REPORT.md
 
-# IDE
+# Local agent / IDE
+/.claude/
 .idea/
 .vscode/
 *.swp
@@ -21,3 +25,7 @@ Thumbs.db
 
 # Go
 /vendor/
+
+# Generated skill package binaries
+/SKILL/bin/*
+!/SKILL/bin/.gitkeep
