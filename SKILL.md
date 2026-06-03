@@ -54,8 +54,9 @@ clscli query -q "[query condition] | [SQL statement]" --region <region> -t <Topi
 ```
 Examples:
 - Time: `--last 1h`, `--last 30m`; or `--from`/`--to` (Unix ms)
-- Multiple topics: `--topics <id1>,<id2>` or multiple `-t <id>`
+- Multiple topics: `--topics <id1>,<id2>`; do not combine with `-t`
 - Auto pagination and cap: `--max 5000` (paginate until 5000 logs or ListOver)
+- Single request: leave `--max` unset or set `--max 0`
 - Output: `--output=json`, `--output=csv`, `-o result.json` (write to file)
 
 | Option | Required | Description |
@@ -113,7 +114,7 @@ Two syntaxes are supported:
 Retrieve log context around a given log.
 
 ```bash
-clscli context <PkgId> <PkgLogId> --region <region> -t <TopicId>
+clscli context <PkgId> <PkgLogId> --region <region> -t <TopicId> --btime <Time>
 ```
 Examples: `--output=json`, `--output=csv`, `-o context.json` (write to file)
 
@@ -123,4 +124,8 @@ Examples: `--output=json`, `--output=csv`, `-o context.json` (write to file)
 | -t, --topic | yes | String | Log topic ID | - |
 | PkgId | yes | String | Log package ID, i.e. SearchLog Results[].PkgId | 528C1318606EFEB8-1A7 |
 | PkgLogId | yes | Integer | Index within package, i.e. SearchLog Results[].PkgLogId | 65536 |
+| --btime | yes | String | Log time from search results. Accepts Unix ms from `Time`, or `YYYY-mm-dd HH:MM:SS.FFF` | 1780452731006 |
+| --prev | no | Integer | Number of preceding logs to retrieve (default 10 by API) | 100 |
+| --next | no | Integer | Number of following logs to retrieve (default 10 by API) | 100 |
+| -q, --query | no | String | Filter context logs with query condition (CQL, no SQL) | level:ERROR |
 | --output, -o | no | - | Output: json, csv, or file path | - |

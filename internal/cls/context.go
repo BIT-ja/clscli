@@ -12,6 +12,10 @@ type GetContextInput struct {
 	TopicId  string
 	PkgId    string
 	PkgLogId int64
+	BTime    string
+	PrevLogs int64
+	NextLogs int64
+	Query    string
 }
 
 // GetContext runs DescribeLogContext and returns the context logs.
@@ -20,6 +24,18 @@ func (c *Client) GetContext(ctx context.Context, in GetContextInput) ([]*cls.Log
 	req.TopicId = &in.TopicId
 	req.PkgId = &in.PkgId
 	req.PkgLogId = &in.PkgLogId
+	if in.BTime != "" {
+		req.BTime = &in.BTime
+	}
+	if in.PrevLogs > 0 {
+		req.PrevLogs = &in.PrevLogs
+	}
+	if in.NextLogs > 0 {
+		req.NextLogs = &in.NextLogs
+	}
+	if in.Query != "" {
+		req.Query = &in.Query
+	}
 
 	resp, err := c.api.DescribeLogContextWithContext(ctx, req)
 	if err != nil {

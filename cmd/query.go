@@ -122,6 +122,9 @@ func runQuery(cmd *cobra.Command, args []string) error {
 			}
 		}
 		_ = writer.Flush()
+		if maxTotal == 0 {
+			break
+		}
 		if res.ListOver || res.Context == "" {
 			break
 		}
